@@ -174,6 +174,9 @@ public class inputData extends javax.swing.JFrame {
             pst.setString(7, stamina.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Data saved successfully");
+            dashboard dash = new dashboard();
+            dash.setVisible(true);
+            this.dispose();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
