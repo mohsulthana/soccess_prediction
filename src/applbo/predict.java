@@ -5,6 +5,10 @@
  */
 package applbo;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author muham
@@ -26,22 +30,101 @@ public class predict extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
+
+        APPLBOPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("APPLBOPU").createEntityManager();
+        dataQuery = java.beans.Beans.isDesignTime() ? null : APPLBOPUEntityManager.createQuery("SELECT d FROM Data d");
+        dataList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : dataQuery.getResultList();
+        dataQuery1 = java.beans.Beans.isDesignTime() ? null : APPLBOPUEntityManager.createQuery("SELECT d FROM Data d");
+        dataList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : dataQuery1.getResultList();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table_prediksi = new javax.swing.JTable();
+        tim_satu = new javax.swing.JTextField();
+        tim_dua = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        tim_dua1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, dataList1, table_prediksi);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idTeam}"));
+        columnBinding.setColumnName("Id Team");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaTim}"));
+        columnBinding.setColumnName("Nama Tim");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${jlhBertanding}"));
+        columnBinding.setColumnName("Jlh Bertanding");
+        columnBinding.setColumnClass(Integer.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        table_prediksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_prediksiMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table_prediksi);
+
+        tim_satu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tim_satuActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Prediksi");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tim_dua)
+                    .addComponent(tim_satu)
+                    .addComponent(tim_dua1))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(153, 153, 153))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tim_satu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tim_dua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tim_dua1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton1)
+                        .addGap(0, 102, Short.MAX_VALUE))))
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tim_satuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tim_satuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tim_satuActionPerformed
+
+    private void table_prediksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_prediksiMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) table_prediksi.getModel();
+        int selectedRowIndex = table_prediksi.getSelectedRow();
+        
+        tim_satu.setText(model.getValueAt(selectedRowIndex, 0).toString());
+        tim_dua.setText(model.getValueAt(selectedRowIndex, 1).toString());
+        tim_dua1.setText(model.getValueAt(selectedRowIndex, 2).toString());
+    }//GEN-LAST:event_table_prediksiMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +162,17 @@ public class predict extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager APPLBOPUEntityManager;
+    private java.util.List<applbo.Data> dataList;
+    private java.util.List<applbo.Data> dataList1;
+    private javax.persistence.Query dataQuery;
+    private javax.persistence.Query dataQuery1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable table_prediksi;
+    private javax.swing.JTextField tim_dua;
+    private javax.swing.JTextField tim_dua1;
+    private javax.swing.JTextField tim_satu;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

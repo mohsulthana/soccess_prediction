@@ -19,8 +19,10 @@ public class APPLBO {
      */
     public static void main(String[] args) throws ClassNotFoundException {
         koneksi connection = new koneksi();
-        login log = new login();
-        log.setVisible(true);
+        userHome user = new userHome();
+        user.setVisible(true);
+//        login log = new login();
+//        log.setVisible(true);
     }
     
 }
